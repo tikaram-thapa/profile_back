@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.profile.profile_back.dtos.ChangePasswordRequest;
 import com.profile.profile_back.dtos.RegisterUserRequest;
 import com.profile.profile_back.dtos.UpdateUserRequest;
 import com.profile.profile_back.dtos.UserDto;
@@ -143,6 +144,27 @@ public class UserController {
         }
         userRepository.delete(user);
         return ResponseEntity.ok().body(new UserDtoResponse(200, "user deleted successfully", null));
+    }
+
+    @PostMapping("/{id}/change-password")
+    public ResponseEntity<UserDtoResponse> changePassword(
+        @PathVariable Long id,
+        @RequestBody ChangePasswordRequest request
+    ) {
+        User user = userRepository.findById(id).orElse(null);
+        if (user == null) {
+            // return ResponseEntity.notFound().build();
+            return ResponseEntity.ok().body(new UserDtoResponse(404, "User not found", null));
+        }
+        if (!user.getPassword().equals(request.getOldPassword())) {
+            return ResponseEntity.ok().body(new UserDtoResponse(400, "Old password is incorrect", null));
+        }
+        if (!request.getNewPassword1().equals(request.getNewPassword2())) {
+            return ResponseEntity.ok().body(new UserDtoResponse(400, "New passwords do not match", null));
+        }
+        user.setPassword(request.getNewPassword1());
+        userRepository.save(user);
+        return ResponseEntity.ok().body(new UserDtoResponse(200, "Password changed successfully", null));
     }
 
 }
