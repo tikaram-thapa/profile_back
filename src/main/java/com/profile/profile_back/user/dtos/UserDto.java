@@ -1,4 +1,4 @@
-package com.profile.profile_back.dtos;
+package com.profile.profile_back.user.dtos;
 
 import java.time.LocalDateTime;
 

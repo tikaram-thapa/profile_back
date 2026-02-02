@@ -1,4 +1,4 @@
-package com.profile.profile_back.entities;
+package com.profile.profile_back.user.entities;
 
 import java.time.LocalDateTime;
 

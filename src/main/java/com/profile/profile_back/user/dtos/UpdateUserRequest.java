@@ -1,13 +1,12 @@
-package com.profile.profile_back.dtos;
+package com.profile.profile_back.user.dtos;
 
 import lombok.Data;
 
 @Data
-public class RegisterUserRequest {
+public class UpdateUserRequest {
     private String name;
     private String phone;
     private String email;
-    private String password;
 
     public String getName() {
         return name;
@@ -19,9 +18,5 @@ public class RegisterUserRequest {
 
     public String getEmail() {
         return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 }

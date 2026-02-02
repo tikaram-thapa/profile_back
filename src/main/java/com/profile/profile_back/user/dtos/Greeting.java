@@ -1,4 +1,4 @@
-package com.profile.profile_back.entities;
+package com.profile.profile_back.user.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

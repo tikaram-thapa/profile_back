@@ -1,4 +1,4 @@
-package com.profile.profile_back.controllers;
+package com.profile.profile_back.user.controllers;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -17,19 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.profile.profile_back.dtos.ChangePasswordRequest;
-import com.profile.profile_back.dtos.RegisterUserRequest;
-import com.profile.profile_back.dtos.UpdateUserRequest;
-import com.profile.profile_back.dtos.UserDto;
-import com.profile.profile_back.dtos.UserDtoListResponse;
-import com.profile.profile_back.dtos.UserDtoResponse;
-import com.profile.profile_back.entities.User;
-import com.profile.profile_back.repositories.UserRepository;
+import com.profile.profile_back.user.dtos.ChangePasswordRequest;
+import com.profile.profile_back.user.dtos.RegisterUserRequest;
+import com.profile.profile_back.user.dtos.UpdateUserRequest;
+import com.profile.profile_back.user.dtos.UserDto;
+import com.profile.profile_back.user.dtos.UserDtoListResponse;
+import com.profile.profile_back.user.dtos.UserDtoResponse;
+import com.profile.profile_back.user.entities.User;
+import com.profile.profile_back.user.repositories.UserRepository;
 
 import lombok.AllArgsConstructor;
-
-
-
 
 @RestController
 @AllArgsConstructor
