@@ -100,7 +100,7 @@ public class UserController {
             user.getCreatedAt(),
             user.getUpdatedAt()
         );
-        var uri = uriBuilder.path("/users/{id}").buildAndExpand(userDto.getId()).toUri();
+        var uri = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new UserDtoResponse(201, "User created successfully", userDto));
     }
