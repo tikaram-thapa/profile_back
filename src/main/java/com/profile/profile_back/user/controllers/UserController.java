@@ -26,17 +26,17 @@ import com.profile.profile_back.user.dtos.UserDtoResponse;
 import com.profile.profile_back.user.entities.User;
 import com.profile.profile_back.user.repositories.UserRepository;
 
-import lombok.AllArgsConstructor;
+// import lombok.AllArgsConstructor;
 
 @RestController
-@AllArgsConstructor
+// @AllArgsConstructor
 @RequestMapping("users")
 public class UserController {
     private final UserRepository userRepository;
 
-    // public UserController(UserRepository userRepository) {
-    //     this.userRepository = userRepository;
-    // }
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @GetMapping
     public UserDtoListResponse getAllUsers(

@@ -18,4 +18,34 @@ public class UpdateProfileRequest {
     public String getFullName() {
         return fname + " " + lname;
     }
+
+    public String getFname() {
+        return fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
+    public String getBio() {
+        return bio;
+    }
+
+    
 }
