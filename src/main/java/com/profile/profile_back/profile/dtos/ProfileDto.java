@@ -64,4 +64,21 @@ public class ProfileDto {
     public String getFullName() {
         return fullName;
     }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getJobTitle() {
+        return jobTitle;
+    }
+
 }

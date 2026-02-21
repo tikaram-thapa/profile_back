@@ -18,12 +18,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+// import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+// @NoArgsConstructor
 public class Profile { // One Profile belongs to One User
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Primary key, auto-increment
@@ -55,7 +55,11 @@ public class Profile { // One Profile belongs to One User
     //     if (uuid == null) {
     //         this.uuid = UUID.randomUUID();
     //     }
-    // }
+    
+    @Autowired
+    public Profile() {
+        // Default constructor for JPA
+    }
 
     @Autowired
     public Profile(User user, String fname, String lname, String fullName, String phone, String email, String address, String jobTitle, String bio, String avatarUrl) {

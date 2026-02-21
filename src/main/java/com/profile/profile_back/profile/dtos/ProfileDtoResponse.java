@@ -4,10 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data
-// @AllArgsConstructor
+@AllArgsConstructor
 public class ProfileDtoResponse {
     private int statusCode;
     private String message;
@@ -23,11 +24,11 @@ public class ProfileDtoResponse {
         this.data = data;
     }
 
-    @Autowired
-    public ProfileDtoResponse(int statusCode, String message, ProfileDto data, String avatarUrl) {
-        this.statusCode = statusCode;
-        this.message = message;
-        this.data = data;
-        this.avatarUrl = avatarUrl;
-    }
+    // @Autowired
+    // public ProfileDtoResponse(int statusCode, String message, ProfileDto data, String avatarUrl) {
+    //     this.statusCode = statusCode;
+    //     this.message = message;
+    //     this.data = data;
+    //     this.avatarUrl = avatarUrl;
+    // }
 }
