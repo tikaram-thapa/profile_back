@@ -19,3 +19,4 @@ spring:
 aws:
   bucket-name: profile-image-2026-bucket
   region: ap-southeast-2
+  
