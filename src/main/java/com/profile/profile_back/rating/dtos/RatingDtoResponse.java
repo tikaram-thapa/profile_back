@@ -13,7 +13,7 @@ public class RatingDtoResponse {
     private int statusCode;
     private String message;
     private RatingDto rating;
-    private Double averageRating;
+    private StatsDto statsDto;
 
     @Autowired
     public RatingDtoResponse(int statusCode, String message, RatingDto ratingDto) {
@@ -23,10 +23,10 @@ public class RatingDtoResponse {
     }
 
     @Autowired
-    public RatingDtoResponse(int statusCode, String message, RatingDto ratingDto, Double averageRating) {
+    public RatingDtoResponse(int statusCode, String message, RatingDto ratingDto, StatsDto statsDto) {
         this.statusCode = statusCode;
         this.message = message;
         this.rating = ratingDto;
-        this.averageRating = averageRating;
+        this.statsDto = statsDto;
     }
 }

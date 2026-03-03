@@ -46,6 +46,10 @@ public class Rating {
         this.comment = comment;
     }
 
+    public Long getid() {
+        return id;
+    }
+
     public double getRatingValue() {
         return ratingValue;
     }

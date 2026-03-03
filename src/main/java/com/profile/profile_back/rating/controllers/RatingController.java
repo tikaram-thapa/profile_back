@@ -16,6 +16,7 @@ import com.profile.profile_back.rating.dtos.RatingDtoResponse;
 import com.profile.profile_back.rating.entities.Rating;
 import com.profile.profile_back.rating.repositories.RatingRepository;
 import com.profile.profile_back.rating.services.RatingService;
+import com.profile.profile_back.rating.dtos.StatsDto;
 
 
 @RestController
@@ -37,13 +38,15 @@ public class RatingController {
         UriComponentsBuilder builder
     ) {
         try {
+            System.out.println("request: " + request);
             Rating rating = ratingService.toProfileEntity(request);
             if (rating == null) {
                 return ResponseEntity.ok(new RatingDtoResponse(404, "Profile not found", null));
             }
             ratingRepository.save(rating);
-            var uri = builder.path("/profiles").buildAndExpand(rating.getId()).toUri();
-            return ResponseEntity.created(uri).body(new RatingDtoResponse(201, "Rating created successfully", ratingService.toRatingDto(rating)));
+            // var uri = builder.path("/profiles").buildAndExpand(rating.getId()).toUri();
+            // return ResponseEntity.created(uri).body(new RatingDtoResponse(201, "Rating created successfully", ratingService.toRatingDto(rating)));
+            return ResponseEntity.ok(new RatingDtoResponse(201, "Rating created successfully", ratingService.toRatingDto(rating)));
         } catch (Exception e) {
             return ResponseEntity.ok(new RatingDtoResponse(500, "Failed to create rating: " + e.getMessage(), null));
         }
@@ -71,7 +74,12 @@ public class RatingController {
                 return ResponseEntity.ok(new RatingDtoResponse(404, "Profile not found", null));
             }
             double averageRating = ratingService.getAverageRatingForProfile(profile);
-            return ResponseEntity.ok(new RatingDtoResponse(200, "Average rating retrieved successfully", null, averageRating));
+            // System.out.println("averageRating: " + averageRating);
+            int totalReviews = ratingService.getTotalReviews(profile);
+            // System.out.println("totalReviews: " + totalReviews);
+            StatsDto stats = new StatsDto(averageRating, totalReviews);
+
+            return ResponseEntity.ok(new RatingDtoResponse(200, "Average rating retrieved successfully", null, stats));
         } catch (Exception e) {
             return ResponseEntity.ok(new RatingDtoResponse(500, "Failed to retrieve rating stats: " + e.getMessage(), null));
         }

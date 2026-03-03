@@ -40,8 +40,25 @@ public class RatingService {
     }
 
     public double getAverageRatingForProfile(Profile profile) {
-        double avg = ratingRepository.findAverageRatingByProfileId(profile.getId());
-        // System.out.println("Avg: " + avg);
-        return avg;
+        try {
+            double average = ratingRepository.findAverageRatingByProfileId(profile.getId());
+            if (average > 0) {
+                return average;
+            } else {
+                return 0;
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return 0;
+        }
+    }
+
+    public int getTotalReviews(Profile profile) {
+        try {
+            return ratingRepository.countByProfileId(profile.getId());
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+            return 0;
+        }
     }
 }
