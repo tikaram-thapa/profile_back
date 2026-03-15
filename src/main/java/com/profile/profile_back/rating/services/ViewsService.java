@@ -1,9 +1,11 @@
 package com.profile.profile_back.rating.services;
 
-import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAdjusters;
+
+import org.springframework.stereotype.Service;
 
 import com.profile.profile_back.profile.entities.Profile;
 import com.profile.profile_back.profile.repositories.ProfileRepository;
@@ -29,6 +31,34 @@ public class ViewsService {
         return date.format(formatter);
     }
 
+    public String firstDayOfMonth(LocalDateTime date) {
+        LocalDateTime firstDayOfMonth = date.withDayOfMonth(1) // sets the day to the 1st of the month
+        .with(LocalTime.MIN); // sets time to 00:00:00
+        return dateInString(firstDayOfMonth);
+    }
+
+    public String lastDayOfMonth(LocalDateTime date) {
+        LocalDateTime lastDayOfMonth = date.withDayOfMonth( // moves the date to the last day
+            date.toLocalDate().lengthOfMonth()) // gets the total days in the current month
+        .with(LocalTime.MAX); // sets time to 23:59:59.99
+        return dateInString(lastDayOfMonth);
+    }
+
+    public String firstDayOfLastMonth(LocalDateTime date) {
+        LocalDateTime firstDayOfLastMonth = date.minusMonths(1) // gets first dat of last month of current date
+        .withDayOfMonth(1) // sets the day to the 1st of the month
+        .with(LocalTime.MIN);
+        return dateInString(firstDayOfLastMonth);
+    }
+
+    public String lastDayOfLastMonth(LocalDateTime date) {
+        LocalDateTime lastDayOfLastMonth = LocalDateTime.now()
+        .minusMonths(1)
+        .with(TemporalAdjusters.lastDayOfMonth())
+        .with(LocalTime.MAX);
+        return dateInString(lastDayOfLastMonth);
+    }
+
     public ProfileView findByProfileIdAndDate(Long profileId, String date) {
         return viewsRepository.findByProfileIdAndDate(profileId, date);
     }
@@ -43,8 +73,12 @@ public class ViewsService {
         viewsRepository.save(profileView);
     }
 
-    public Long sumLookUps(Long profileId, String date) {
-        return viewsRepository.sumLookUps(profileId, date);
+    public Long sumLookUps(Long profileId, LocalDateTime date) {
+        return viewsRepository.sumLookUps(profileId, firstDayOfMonth(date), lastDayOfMonth(date));
+    }
+
+    public Long lastMonthSumLookUps(Long profileId, LocalDateTime date) {
+        return viewsRepository.sumLookUps(profileId, firstDayOfLastMonth(date), lastDayOfLastMonth(date));
     }
 
     public ProfileView toUpdateViews(ProfileView views, Long totalLookUps) {

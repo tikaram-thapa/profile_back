@@ -17,8 +17,6 @@ import com.profile.profile_back.profile.entities.Profile;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 
-
-
 @RestController
 @RequestMapping("views")
 public class ProfileViewCotroller {
@@ -72,15 +70,17 @@ public class ProfileViewCotroller {
             if (profile == null) {
                 return ResponseEntity.ok(new ViewsResponseDto(404, "Profile not found.", null));
             }
-            String today = viewsService.dateInString(LocalDateTime.now());
+            LocalDateTime today = LocalDateTime.now();
+            //  String today = viewsService.dateInString(date);
             Long totalLookUps = viewsService.sumLookUps(profile.getId(), today);
-            Double thanLastMonth = 0.1;
+            /// last month total lookups
+            Long lastMonthTotalLookUps = viewsService.lastMonthSumLookUps(profile.getId(), today);
+            /// calculate current rate w.r.t last month
+            Double thanLastMonth = (Double.parseDouble(totalLookUps.toString()) / Double.parseDouble(lastMonthTotalLookUps.toString()));
             ViewsStatsDto statsDto = new ViewsStatsDto(Double.parseDouble(totalLookUps.toString()), thanLastMonth);
             return ResponseEntity.ok(new ViewsResponseDto(200, "Views created successfully", null, statsDto));
         } catch (Exception e) {
             return ResponseEntity.ok(new ViewsResponseDto(500, "Error on get: " + e.getMessage(), null));
         }
     }
-    
-    
 }
